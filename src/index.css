@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(250, 204, 21, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0);
+  }
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.8s ease-out;
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
+}
+.animate-slideUp {
+  animation: slideUp 1s ease-out 0.3s both;
+}
+.animate-pulseGlow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* ---- Cross-fade + Ken Burns para las slides ---- */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  /* estado base: invisible */
+  opacity: 0;
+  transform: scale(1);
+  /* transición del cross-fade */
+  transition: opacity 800ms ease;
+  /* evita “saltos” al cambiar slides */
+  will-change: opacity, transform;
+}
+
+/* slide activa: aparece y aplica zoom lento */
+.hero-slide.is-active {
+  opacity: 1;
+  animation: kenburns 5s ease-in-out both;
+}
+
+/* Suaviza el cambio cuando una sale y entra otra */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+    filter: brightness(0.98) saturate(1);
+  }
+  100% {
+    transform: scale(1.06); /* zoom muy sutil */
+    filter: brightness(1) saturate(1.02);
+  }
+}
+
+/* ===== Animaciones de texto y botón ===== */
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+}
+.animate-fadeInDown { animation: fadeInDown 0.8s ease-out; }
+.animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+.animate-slideUp { animation: slideUp 1s ease-out 0.3s both; }
+.animate-pulseGlow { animation: pulseGlow 2s infinite; }
+
+/* ===== Cross-fade + Ken Burns para slides ===== */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 800ms ease;
+  will-change: opacity, transform;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  animation: kenburns 10s ease-in-out both;
+}
+@keyframes kenburns {
+  0% { transform: scale(1); filter: brightness(0.98) saturate(1); }
+  100% { transform: scale(1.06); filter: brightness(1) saturate(1.02); }
+}
+
+/* ===== Flechas del carrusel ===== */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  color: #14532d; /* green-900 aprox */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: background-color .2s ease, transform .2s ease, color .2s ease;
+}
+.hero-arrow:hover {
+  background: #facc15; /* yellow-400 */
+  color: #14532d;
+  transform: translateY(-50%) scale(1.05);
+}
+.hero-arrow:active { transform: translateY(-50%) scale(0.98); }
+.hero-arrow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.85);
+}
+@media (max-width: 640px) {
+  .hero-arrow { width: 38px; height: 38px; }
+}
+
+/* ===== Carrusel de Testimonios ===== */
+.t-card {
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  max-width: 640px;
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid rgba(16, 185, 129, 0.15); /* verde suave */
+  padding: 1.5rem;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(10px) scale(.98);
+  transition: opacity 400ms ease, transform 400ms ease, filter 400ms ease;
+  filter: blur(2px);
+}
+.t-card.is-active {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+/* contenedor relativo para posicionar tarjetas */
+[aria-label="Carrusel de testimonios"] {
+  min-height: 240px; /* asegura altura estable */
+}
+
+/* Flechas de testimonios (match con hero) */
+.t-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  color: #14532d;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  transition: background-color .2s ease, transform .2s ease, color .2s ease;
+}
+.t-arrow:hover { background: #facc15; color: #14532d; transform: translateY(-50%) scale(1.05); }
+.t-arrow:active { transform: translateY(-50%) scale(.98); }
+.t-arrow:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(16, 185, 129, .45); }
+
+@media (max-width: 640px) {
+  .t-arrow { width: 36px; height: 36px; }
+}
+
+
+body { @apply bg-white text-gray-800; }
+
+/* ===== Animaciones suaves ===== */
+@keyframes float {
+  0%   { transform: translateY(0) }
+  50%  { transform: translateY(-6px) }
+  100% { transform: translateY(0) }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes fade-in-up {
+  0%   { opacity: 0; transform: translateY(12px) }
+  100% { opacity: 1; transform: translateY(0) }
+}
+.animate-fade-in-up { animation: fade-in-up .7s ease both; }
+
+
